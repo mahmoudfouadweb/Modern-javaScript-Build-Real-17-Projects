@@ -13,18 +13,34 @@ body {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   line-height: 1;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(https://images.unsplash.com/photo-1583211434551-28809df307dd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80)
+      no-repeat center center / cover;
+  color: #fff;
+  overflow: hidden;
 }
 
 /**************************/
 /* STYLES */
 /**************************/
+h1,
+h2 {
+  margin: 0.4rem;
+}
 
+h1 {
+  font-size: 3rem;
+  color: #fff6ec;
+}
 /**************************/
 /* GENERAL  COMPONENT STYLES */
 /**************************/
 .container {
   justify-content: center;
   align-items: center;
+  height: 100%;
+  padding: 0 3rem;
 }
 
 .flex {
