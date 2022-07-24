@@ -26,12 +26,20 @@ body {
 /**************************/
 h1,
 h2 {
+  font-weight: 600;
   margin: 0.4rem;
 }
 
 h1 {
   font-size: 3rem;
   color: #fff6ec;
+  align-self: flex-start;
+  text-transform: capitalize;
+}
+
+h2 {
+  font-size: 1.6rem;
+  align-self: flex-start;
 }
 /**************************/
 /* GENERAL  COMPONENT STYLES */
