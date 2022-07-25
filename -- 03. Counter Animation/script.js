@@ -22,14 +22,14 @@
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 document.querySelectorAll('.counter').forEach(count => {
-  console.log(count);
   count.textContent = 0;
   function updateUI() {
     const target = +count.dataset.target;
     let textUI = +count.textContent;
     let i = Math.floor(target / 250);
     if (textUI < target) {
-      count.textContent = i +
+      count.textContent = i + textUI;
+      setTimeout(updateUI, 1);
     }
   }
   updateUI();
