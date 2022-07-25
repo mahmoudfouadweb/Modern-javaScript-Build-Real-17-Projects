@@ -23,6 +23,16 @@
 ///////////////////////////////////////////////
 document.querySelectorAll('.counter').forEach(count => {
   count.textContent = 0;
+  const countClass = count
+    .closest('.counter__container')
+    .querySelector('.icon');
+  if (countClass.getAttribute('name') === 'logo-facebook') {
+    countClass.style.color = 'blue';
+  } else if (countClass.getAttribute('name') === 'logo-youtube') {
+    countClass.style.color = 'red';
+  } else {
+    countClass.style.color = 'aqua';
+  }
   function updateUI() {
     const target = +count.dataset.target;
     let textUI = +count.textContent;
