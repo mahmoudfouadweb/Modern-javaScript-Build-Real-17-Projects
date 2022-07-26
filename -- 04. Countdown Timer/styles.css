@@ -27,8 +27,28 @@ body {
 /**************************/
 /* STYLES */
 /**************************/
+.title {
+  font-size: 3.6rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 2.4rem;
+}
+
 .time-container {
   display: flex;
+}
+
+.days,
+.hours,
+.minutes,
+.seconds {
+  font-size: 5.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.sm {
+  font-size: 1.6rem;
+  text-align: center;
 }
 /**************************/
 /* GENERAL  COMPONENT STYLES */
