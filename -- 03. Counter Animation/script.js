@@ -21,20 +21,20 @@
 // });
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
-document.querySelectorAll('.counter').forEach(count => {
-  count.textContent = 0;
-  const countClass = count
-    .closest('.counter__container')
-    .querySelector('.icon');
-  if (countClass.getAttribute('name') === 'logo-facebook') {
-    countClass.style.color = 'blue';
-  } else if (countClass.getAttribute('name') === 'logo-youtube') {
-    countClass.style.color = 'red';
-  } else {
-    countClass.style.color = 'aqua';
-  }
+setInterval(() => {
+  document.querySelectorAll('.counter').forEach(count => {
+    count.textContent = 0;
 
-  setInterval(function () {
+    const countClass = count
+      .closest('.counter__container')
+      .querySelector('.icon');
+    if (countClass.getAttribute('name') === 'logo-facebook') {
+      countClass.style.color = 'blue';
+    } else if (countClass.getAttribute('name') === 'logo-youtube') {
+      countClass.style.color = 'red';
+    } else {
+      countClass.style.color = 'aqua';
+    }
     function updateUI() {
       const target = +count.dataset.target;
       let textUI = +count.textContent;
@@ -45,5 +45,21 @@ document.querySelectorAll('.counter').forEach(count => {
       }
     }
     updateUI();
-  }, 1500);
-});
+  });
+}, 3000);
+
+setInterval(() => {
+  const timeNow = new Date();
+  let amPm = 'am';
+  let h = timeNow.getHours();
+  let m = timeNow.getMinutes();
+  let s = timeNow.getSeconds();
+  if (h > 12) {
+    h = h - 12;
+    amPm = 'pm';
+  } else {
+    amPm = 'am';
+  }
+
+  console.log('the time is:- ', h, m, s, amPm);
+}, 1000);
