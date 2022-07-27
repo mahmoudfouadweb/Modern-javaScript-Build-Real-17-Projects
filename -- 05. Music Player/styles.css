@@ -40,13 +40,13 @@ body {
 
 .img-container {
   position: relative;
-  width: 11rem;
+  width: 6rem;
 }
 
-.music-container img {
+.img-cover {
   border-radius: 50%;
   object-fit: cover;
-  height: 11rem;
+  height: 6rem;
   width: inherit;
   position: absolute;
   bottom: 0;
@@ -55,7 +55,7 @@ body {
   animation-play-state: paused;
 }
 
-.music-container.play .music-container img {
+.music-container.play .img-cover {
   animation-play-state: running;
 }
 
@@ -71,7 +71,8 @@ body {
   color: #dfdfdf;
   font-size: 2rem;
   cursor: pointer;
-  padding: 1rem;
+  padding: 0rem;
+  padding-left: 4rem;
   margin: 0 2rem;
 }
 
