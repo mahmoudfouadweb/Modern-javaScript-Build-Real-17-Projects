@@ -1,2 +1,13 @@
 'use strict';
 console.log('hi there');
+const musicContainer = document.querySelector('.music-container ');
+const musicContainer = document.querySelector('.music-container ');
+const musicContainer = document.querySelector('.music-container ');
+const musicContainer = document.querySelector('.music-container ');
+const musicContainer = document.querySelector('.music-container ');
+const musicContainer = document.querySelector('.music-container ');
+const musicContainer = document.querySelector('.music-container ');
+const musicContainer = document.querySelector('.music-container ');
+const musicContainer = document.querySelector('.music-container ');
+const musicContainer = document.querySelector('.music-container ');
+const musicContainer = document.querySelector('.music-container ');
