@@ -4,6 +4,7 @@ const musicContainer = document.querySelector('.music-container ');
 const play = document.querySelector('.play');
 const prev = document.querySelector('.prev');
 const next = document.querySelector('.next');
+const navigation = document.querySelector('.navigation');
 
 const audio = document.querySelector('audio');
 const progressContainer = document.querySelector('.progress-container');
@@ -16,10 +17,8 @@ const imgCover = document.querySelector('.img-cover');
 //////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////
 // songs title
-const songs = ['2aletly 2oul', '3allemni Hawak'];
+const songs = ['2aletly 2oul', '3allemni Hawak', '7annit'];
 
 // keep track of song
 let songIndex = 0;
@@ -36,9 +35,53 @@ function loadSong(song) {
 }
 
 //////////////////////////////////////////////////////////
+// Play Music
+function playMusic() {
+  // clear classes
+  musicContainer.classList.remove('play');
+  // active play event
+  musicContainer.classList.add('play');
+  // play button
+  play.querySelector('i').classList.remove('fa-play');
+  // change play btn to pause
+  play.querySelector('i').classList.add('fa-pause');
+  audio.play();
+}
+
+//////////////////////////////////////////////////////////
+// pause music
+function pauseMusic() {
+  // clear classes
+  musicContainer.classList.remove('play');
+  // change play btn to pause
+  play.querySelector('i').classList.remove('fa-pause');
+  // play button
+  play.querySelector('i').classList.add('fa-play');
+
+  audio.pause();
+}
+
+//////////////////////////////////////////////////////////
+// Next song
+function nextSong() {
+  songIndex++;
+  if (songIndex > songs.length) {
+    songIndex = 0;
+  }
+}
+
+//////////////////////////////////////////////////////////
 //Event Listener
 play.addEventListener('click', e => {
-  loadSong(songs[songIndex]);
-  audio.play();
-  console.log(e.target);
+  const click = e.target;
+  if (
+    click
+      .closest('.cta__btn')
+      .querySelector('i.fas')
+      .classList.contains('fa-play')
+  ) {
+    playMusic();
+  } else {
+    pauseMusic();
+  }
 });
