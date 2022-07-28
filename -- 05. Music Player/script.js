@@ -19,7 +19,6 @@ const imgCover = document.querySelector('.img-cover');
 //////////////////////////////////////////////////////////
 // songs title
 const songs = ['2aletly 2oul', '3allemni Hawak', '7annit'];
-
 // keep track of song
 let songIndex = 0;
 
@@ -65,13 +64,45 @@ function pauseMusic() {
 // Next song
 function nextSong() {
   songIndex++;
-  if (songIndex > songs.length) {
+  if (songIndex > songs.length - 1) {
     songIndex = 0;
   }
+  updateSong();
+  playMusic();
 }
 
 //////////////////////////////////////////////////////////
+// Previos song
+function prevSong() {
+  songIndex--;
+  if (songIndex < 0) {
+    songIndex = songs.length - 1;
+  }
+  updateSong();
+  playMusic();
+}
+
+//////////////////////////////////////////////////////////
+// update song
+function updateSong() {
+  title.textContent = songs[songIndex];
+  audio.src = `./music/${songs[songIndex]}.mp3`;
+  //temp img source
+  imgCover.src = `https://arab-zik.com/images/images_artistes/image_artiste_2_1518`;
+}
+
+//////////////////////////////////////////////////////////
+// Progress Bar
+function progressBar(e) {
+  const { duration, currentTime } = e.target;
+  console.log(duration, currentTime);
+  const progressPercent = (currentTime / duration) * 100;
+  progress.style.width = `${progressPercent}%`;
+  console.log(progressPercent);
+}
+//////////////////////////////////////////////////////////
 //Event Listener
+// play
 play.addEventListener('click', e => {
   const click = e.target;
   if (
@@ -80,8 +111,19 @@ play.addEventListener('click', e => {
       .querySelector('i.fas')
       .classList.contains('fa-play')
   ) {
+    updateSong();
     playMusic();
   } else {
     pauseMusic();
   }
 });
+
+//////////////////////////////////////////////////////////
+// next song
+next.addEventListener('click', nextSong);
+//////////////////////////////////////////////////////////
+// Previos song
+prev.addEventListener('click', prevSong);
+//////////////////////////////////////////////////////////
+// TimeLine Progress
+audio.addEventListener('timeupdate', progressBar);
