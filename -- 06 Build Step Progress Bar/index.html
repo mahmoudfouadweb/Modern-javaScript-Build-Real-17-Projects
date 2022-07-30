@@ -10,13 +10,34 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
       rel="stylesheet"
     />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="shortcut icon" href="#" />
     <!-- css file -->
     <link rel="stylesheet" href="styles.css" />
     <!-- Javascript file -->
     <script src="script.js" defer></script>
-    <title>New Document</title>
+    <title>Build step progress bar</title>
   </head>
   <body>
-    <h1>Hello World!!!</h1>
+    <div class="container">
+      <h1 class="title">step progress bar</h1>
+      <div class="progress-container flex">
+        <div class="progress"></div>
+        <div class="circle active"><div class="fab fa-html5"></div></div>
+        <div class="circle active"><div class="fab fa-css3"></div></div>
+        <div class="circle active"><div class="fab fa-js"></div></div>
+        <div class="circle active"><div class="fab fa-react"></div></div>
+      </div>
+
+      <button class="btn" id="prev" disabled>prev</button>
+      <button class="btn" id="next">next</button>
+    </div>
   </body>
 </html>
