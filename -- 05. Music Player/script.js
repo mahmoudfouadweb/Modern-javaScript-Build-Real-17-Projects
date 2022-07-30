@@ -95,10 +95,16 @@ function updateSong() {
 // Progress Bar
 function progressBar(e) {
   const { duration, currentTime } = e.target;
-  console.log(duration, currentTime);
   const progressPercent = (currentTime / duration) * 100;
   progress.style.width = `${progressPercent}%`;
-  console.log(progressPercent);
+}
+//////////////////////////////////////////////////////////
+//set progress
+function setProgress(e) {
+  const width = this.clientWidth;
+  const clickPosition = e.offsetX;
+  const duration = audio.duration;
+  audio.currentTime = (clickPosition / width) * duration;
 }
 //////////////////////////////////////////////////////////
 //Event Listener
@@ -127,3 +133,6 @@ prev.addEventListener('click', prevSong);
 //////////////////////////////////////////////////////////
 // TimeLine Progress
 audio.addEventListener('timeupdate', progressBar);
+//////////////////////////////////////////////////////////
+// set Progress
+progressContainer.addEventListener('click', setProgress);
