@@ -20,18 +20,106 @@ body {
   font-family: 'Mulish', sans-serif;
   font-weight: 400;
   line-height: 1;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /**************************/
 /* STYLES */
 /**************************/
+.title {
+  color: #212;
+  margin-bottom: 9rem;
+}
 
+.fab {
+  font-size: 2.4rem;
+}
+
+.fa-html5 {
+  color: #ff5773;
+}
+
+.fa-css3 {
+  color: #264de4;
+}
+.fa-js {
+  color: #f7e018;
+}
+.fa-react {
+  color: #61dbfb;
+}
+
+.progress-container {
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 3rem;
+  max-width: 100%;
+  width: 35rem;
+}
+
+.progress-container::before {
+  content: '';
+  background-color: var(--line-border-empty);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 100%;
+  z-index: -1;
+  transition: 0.4s ease;
+}
+.progress {
+  background-color: var(--line-border-fill);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 0%;
+  z-index: -1;
+  transition: 0.4s ease;
+}
+
+.circle {
+  background-color: #fff;
+  color: #999;
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+  border: 3px solid #b2bec3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s ease;
+  /* transform: translateY(50%); */
+}
+
+.circle.active {
+  border-color: var(--line-border-fill);
+}
+
+.btn {
+  background-color: var(--line-border-fill);
+  color: #fff;
+  border-radius: 6px;
+  border: 0;
+  cursor: pointer;
+  padding: 0.8rem 3rem;
+  font-family: inherit;
+  margin: 5px;
+  font-size: 1.4rem;
+}
 /**************************/
 /* GENERAL  COMPONENT STYLES */
 /**************************/
 .container {
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 }
 
 .flex {
