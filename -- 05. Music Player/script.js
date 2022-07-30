@@ -104,7 +104,11 @@ function setProgress(e) {
   const width = this.clientWidth;
   const clickPosition = e.offsetX;
   const duration = audio.duration;
+  if (audio.currentTime == duration) {
+    audio.currentTime = 0;
+  }
   audio.currentTime = (clickPosition / width) * duration;
+  console.log((audio.currentTime = (clickPosition / width) * duration));
 }
 //////////////////////////////////////////////////////////
 //Event Listener
@@ -136,3 +140,6 @@ audio.addEventListener('timeupdate', progressBar);
 //////////////////////////////////////////////////////////
 // set Progress
 progressContainer.addEventListener('click', setProgress);
+//////////////////////////////////////////////////////////
+// song end
+audio.addEventListener('ended', nextSong);
