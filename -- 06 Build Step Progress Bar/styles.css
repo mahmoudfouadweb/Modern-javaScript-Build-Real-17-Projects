@@ -81,7 +81,7 @@ body {
   left: 0;
   transform: translateY(-50%);
   height: 4px;
-  width: 0%;
+  width: 25%;
   z-index: -1;
   transition: 0.4s ease;
 }
@@ -114,6 +114,18 @@ body {
   font-family: inherit;
   margin: 5px;
   font-size: 1.4rem;
+}
+.btn:focus {
+  outline: 0;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  background-color: var(--line-border-empty);
+  cursor: not-allowed;
 }
 /**************************/
 /* GENERAL  COMPONENT STYLES */
