@@ -13,22 +13,26 @@ const imgs = rightSlide.querySelectorAll('div');
 let activeSlideIndex = 0;
 leftSlide.style.top = `-${0 * 100}vh`;
 
-upBtn.addEventListener('click', e => {
-  activeSlideIndex++;
+function change(position) {
   const sliderHeight = slidContainer.clientHeight;
+  if (position === 'up') {
+    activeSlideIndex++;
 
-  if (activeSlideIndex > slidesLenght - 1) {
-    activeSlideIndex = 0;
+    if (activeSlideIndex > slidesLenght - 1) {
+      activeSlideIndex = 0;
+    }
+  } else if (position === 'down') {
+    activeSlideIndex;
   }
   rightSlide.style.transform = `translateY(-${
     sliderHeight * activeSlideIndex
   }px)`;
   leftSlide.style.top = `-${activeSlideIndex * 100}vh`;
+}
+
+upBtn.addEventListener('click', () => {
+  change('up');
 });
-downBtn.addEventListener('click', e => {
-  activeSlideIndex--;
-  if (activeSlideIndex < 0) {
-    activeSlideIndex = slidesLenght - 1;
-  }
-  leftSlide.style.top = `-${activeSlideIndex * 100}vh`;
+downBtn.addEventListener('click', () => {
+  change('down');
 });
