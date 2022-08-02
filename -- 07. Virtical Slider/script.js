@@ -11,7 +11,7 @@ const slidesLenght = leftSlide.querySelectorAll('div').length;
 const imgs = rightSlide.querySelectorAll('div');
 
 let activeSlideIndex = 0;
-leftSlide.style.top = `-${(slidesLenght - 1) * 100}vh`;
+leftSlide.style.top = `-${0 * 100}vh`;
 
 upBtn.addEventListener('click', e => {
   activeSlideIndex++;
@@ -20,7 +20,7 @@ upBtn.addEventListener('click', e => {
   if (activeSlideIndex > slidesLenght - 1) {
     activeSlideIndex = 0;
   }
-  rightSlide.style.transform = `translateY(${
+  rightSlide.style.transform = `translateY(-${
     sliderHeight * activeSlideIndex
   }px)`;
   leftSlide.style.top = `-${activeSlideIndex * 100}vh`;
