@@ -22,7 +22,10 @@ function change(position) {
       activeSlideIndex = 0;
     }
   } else if (position === 'down') {
-    activeSlideIndex;
+    activeSlideIndex--;
+    if (activeSlideIndex < 0) {
+      activeSlideIndex = slidesLenght - 1;
+    }
   }
   rightSlide.style.transform = `translateY(-${
     sliderHeight * activeSlideIndex
