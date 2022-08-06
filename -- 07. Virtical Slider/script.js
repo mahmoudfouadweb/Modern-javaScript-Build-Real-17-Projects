@@ -11,31 +11,31 @@ const slidesLenght = leftSlide.querySelectorAll('div').length;
 const imgs = rightSlide.querySelectorAll('div');
 
 let activeSlideIndex = 0;
-leftSlide.style.top = `-${0 * 100}vh`;
 
+leftSlide.style.top = `-${(slidesLenght - 1) * 100}vh`;
+const sliderHeight = slidContainer.clientHeight;
+console.log(sliderHeight);
 function change(position) {
   const sliderHeight = slidContainer.clientHeight;
   if (position === 'up') {
     activeSlideIndex++;
-
     if (activeSlideIndex > slidesLenght - 1) {
       activeSlideIndex = 0;
     }
-  } else if (position === 'down') {
+  } else {
     activeSlideIndex--;
     if (activeSlideIndex < 0) {
       activeSlideIndex = slidesLenght - 1;
     }
   }
   rightSlide.style.transform = `translateY(-${
-    sliderHeight * activeSlideIndex
+    activeSlideIndex * sliderHeight
   }px)`;
-  leftSlide.style.top = `-${activeSlideIndex * 100}vh`;
+  leftSlide.style.transform = `translateY(${
+    activeSlideIndex * sliderHeight
+  }px)`;
+  // leftSlide.style.top = `-${activeSlideIndex * 100}vh`;
 }
 
-upBtn.addEventListener('click', () => {
-  change('up');
-});
-downBtn.addEventListener('click', () => {
-  change('down');
-});
+upBtn.addEventListener('click', () => change('up'));
+downBtn.addEventListener('click', () => change('down'));
