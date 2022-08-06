@@ -46,6 +46,11 @@ input {
   display: block;
   width: 100%;
 }
+
+input::placeholder {
+  color: #d5d5d5;
+}
+
 /**************************/
 /* GENERAL  COMPONENT STYLES */
 /**************************/
