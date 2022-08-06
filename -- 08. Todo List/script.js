@@ -1,2 +1,6 @@
 'use strict';
-console.log('hi there');
+
+const form = document.querySelector('.form');
+const input = document.querySelector('.input');
+const todos = document.querySelector('.todos');
+const demo = document.querySelector('.');
