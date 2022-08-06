@@ -5,20 +5,47 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body {
   /* 10px  / 16px  * 100  = 62.5% */
   font-size: 62.5%;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
+}
+
+body {
   line-height: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fff;
+  overflow: hidden;
 }
 
 /**************************/
 /* STYLES */
 /**************************/
+h1 {
+  color: #f65058ff;
+  font-size: 10rem;
+  text-align: center;
+  opacity: 0.5;
+}
 
+form {
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
+  max-width: 100%;
+  width: 40rem;
+}
+
+input {
+  border: none;
+  color: rgb(45, 57, 83);
+  font-size: 3.2rem;
+  padding: 1.6rem 3.2rem;
+  display: block;
+  width: 100%;
+}
 /**************************/
 /* GENERAL  COMPONENT STYLES */
 /**************************/
