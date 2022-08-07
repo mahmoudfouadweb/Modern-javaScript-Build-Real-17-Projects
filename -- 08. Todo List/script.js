@@ -4,15 +4,59 @@ const form = document.querySelector('.form');
 const input = document.querySelector('.input');
 const todosUl = document.querySelector('.todos');
 ///////////////////////////////////////////////
+
+///////////////////////////////////////////////
+// form control
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  addTodo();
+  // updateLS();
+  e.target.reset();
+});
+
+///////////////////////////////////////////////
+// add new todo
+function addTodo(todos) {
+  const todoInput = input.value;
+  if (todoInput) {
+    const todoEl = document.createElement('li');
+    todoEl.textContent = todoInput;
+    todosUl.insertAdjacentElement('beforeend', todoEl);
+    // mark completed
+    todoEl.addEventListener('click', e => {
+      const todo = e.target;
+      if (todo) {
+        todo.classList.toggle('completed');
+      }
+    });
+    //remove completed
+    todoEl.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      const todo = e.target;
+      if (todo) todo.remove();
+    });
+  }
+}
+
+///////////////////////////////////////////////
+// save todos
+function updateLS() {
+  const todosEl = document.querySelectorAll('li');
+  const todos = [];
+  todosEl.forEach(todoEl => {
+    todos.push({
+      text: todoEl.textContent,
+      isCompleted: todoEl.classList.contains('completed'),
+    });
+  });
+  console.log(todos);
+  localStorage.setItem('todos', JSON.stringify('todos'));
+}
+
+///////////////////////////////////////////////
 // localstorage Control
-const todos = localStorage.getItem(JSON.parse(todos));
-if (todos) addTodo(todos);
-
-///////////////////////////////////////////////
-
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-///////////////////////////////////////////////
+// const todos = localStorage.getItem(JSON.parse(todos));
+// if (todos) addTodo(todos);
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
