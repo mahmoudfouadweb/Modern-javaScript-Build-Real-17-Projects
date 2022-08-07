@@ -13,14 +13,28 @@ const todos = document.querySelector('.todos');
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 
-function addTodo() {
-  let userText = input.value;
-  const htmlTag = document.createElement('li');
-  htmlTag.textContent = htmlTag;
-  todos.insertAdjacentHTML('beforeend', htmlTag);
-  form.reset();
+function addTodo(todo) {
+  let todoText = input.value;
+  if (todo) {
+    todoText = todo.text;
+  }
+  // Build todo item
+  if (todoText) {
+    const todoEl = document.createElement('li');
+    if (todo && todo.completed) {
+      todoEl.classList.toggle('completed');
+    }
+  }
 }
 
+function localStorage(todo) {
+  localStorage.setItem('todo', JSON.stringify(todo));
+}
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  addTodo();
+});
 // function update() {
 //   todos.querySelectorAll('li').forEach(el => {
 //     el.addEventListener('click', e => {
