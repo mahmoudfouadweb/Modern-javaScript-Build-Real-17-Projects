@@ -32,6 +32,13 @@ body {
   font-size: 1.8rem;
   margin-bottom: 1.6rem;
 }
+
+.notification {
+  font-size: 1.8rem;
+  color: red;
+
+  margin-bottom: 1.6rem;
+}
 /**************************/
 /* GENERAL  COMPONENT STYLES */
 /**************************/
