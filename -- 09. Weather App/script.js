@@ -27,11 +27,11 @@ if ('geolocation' in navigator) {
 }
 
 ///////////////////////////////////////////////////
-// set user position
+// set user position 'a function has one parameter'
 function setPosition(position) {
-  let latitude = position.coord.latitude;
-  let longitude = position.coord.longitude;
-
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+  console.log(latitude, longitude);
   getWeather(latitude, longitude);
 }
 
@@ -45,6 +45,8 @@ function showError(error) {
 ///////////////////////////////////////////////////
 // Get Weather from API Provider
 function getWeather(latitude, longitude) {
-  let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
-  console.log(api);
+  let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&lang=ar`;
+  fetch(api)
+    .then(res => res.json())
+    .then(data => console.log(data));
 }
