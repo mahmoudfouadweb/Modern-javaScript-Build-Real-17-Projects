@@ -13,22 +13,54 @@ const notificationEl = document.querySelector('.notification');
 // App
 const kelvin = 273.15;
 const weather = {};
-weather.temperature = {
-  unit: 'C',
-};
+// weather.temperature = {
+//   unit: 'C',
+// };
 const key = '8e7d106695f8821e7a6da4304ae71e30';
 
 ///////////////////////////////////////////////////
-//
+// check if browser support localization
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(getLocalCoords, errorMessage);
+} else {
+  notificationEl.textContent = `Your Browser Not Support Localization `;
+}
 
 ///////////////////////////////////////////////////
-//
+// get Coordinate Longitude and
+function getLocalCoords(position) {
+  // Get Coordinates
+  const latitude = position.coords.latitude;
+  const longitude = position.coords.longitude;
+  // Get Data from API
+  let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&lang=ar`;
+
+  ///////////////////////////////////////////////////
+  // AR DATA
+  // let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&lang=ar`;
+
+  ///////////////////////////////////////////////////
+  fetch(api)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      // weather.temperature = data.
+      return data;
+    })
+    .then(updateUI(latitude, longitude));
+}
 
 ///////////////////////////////////////////////////
-//
+// show errors to user
+function errorMessage(message) {
+  console.log(message);
+}
 
 ///////////////////////////////////////////////////
-///////////////////////////////////////////////////
+// Update data to UI
+function updateUI(lat, lng) {
+  console.log(lat, lng);
+}
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
