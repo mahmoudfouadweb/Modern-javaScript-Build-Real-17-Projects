@@ -13,9 +13,8 @@ const notificationEl = document.querySelector('.notification');
 // App
 const kelvin = 273.15;
 const weather = {};
-// weather.temperature = {
-//   unit: 'C',
-// };
+weather.unit = 'C';
+
 const key = '8e7d106695f8821e7a6da4304ae71e30';
 
 ///////////////////////////////////////////////////
@@ -23,6 +22,7 @@ const key = '8e7d106695f8821e7a6da4304ae71e30';
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(getLocalCoords, errorMessage);
 } else {
+  notificationEl.style.display = `block`;
   notificationEl.textContent = `Your Browser Not Support Localization `;
 }
 
@@ -33,7 +33,7 @@ function getLocalCoords(position) {
   const latitude = position.coords.latitude;
   const longitude = position.coords.longitude;
   // Get Data from API
-  let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&lang=ar`;
+  let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
 
   ///////////////////////////////////////////////////
   // AR DATA
@@ -44,11 +44,16 @@ function getLocalCoords(position) {
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      // weather.temperature = data.
-      return data;
+      weather.temperature = Math.round(data.main.temp - kelvin);
+      weather.status = `${data.weather[0].main} and ${data.weather[0].description}`;
+      weather.icon = data.weather[0].icon;
+      weather.locationName = `${data.sys.country}, ${data.name}`;
     })
-    .then(updateUI(latitude, longitude));
+    .then(() => {
+      updateUI();
+    });
 }
+console.log('weather', weather);
 
 ///////////////////////////////////////////////////
 // show errors to user
@@ -58,8 +63,11 @@ function errorMessage(message) {
 
 ///////////////////////////////////////////////////
 // Update data to UI
-function updateUI(lat, lng) {
-  console.log(lat, lng);
+function updateUI() {
+  iconEl.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
+  tempEl.innerHTML = `<p>${weather.temperature}°<span>${weather.unit}</span></p> `;
+  locationEl.textContent = weather.locationName;
+  descEl.textContent = weather.status;
 }
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
