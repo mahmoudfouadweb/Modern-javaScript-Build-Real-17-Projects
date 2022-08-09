@@ -4,18 +4,18 @@
 
 ///////////////////////////////////////////////////
 //General Variables setting
-const iconEl = document.querySelector('.weather-icon');
+const iconEl = document.querySelector('.icon');
 const tempEl = document.querySelector('.temperature-value p');
 const descEl = document.querySelector('.temperature-description p');
 const locationEl = document.querySelector('.location p');
 const notificationEl = document.querySelector('.notification');
 
 // App
+const kelvin = 273.15;
 const weather = {};
 weather.temperature = {
   unit: 'celsius',
 };
-let icon = document.querySelector();
 const key = '8e7d106695f8821e7a6da4304ae71e30';
 ///////////////////////////////////////////////////
 // check if browser support localization
@@ -48,6 +48,12 @@ function getWeather(latitude, longitude) {
   fetch(api)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
+      weather.temperature.value = Math.floor(data.main.temp - kelvin);
+      weather.countryCode = data.sys.country;
+      weather.locationName = data.name;
+      weather.description = data.weather[0].description;
+      weather.mainDescription = data.weather[0].main;
+      weather.icon = data.weather[0].icon;
+      console.log('data', data);
     });
 }
