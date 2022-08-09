@@ -14,7 +14,7 @@ const notificationEl = document.querySelector('.notification');
 const kelvin = 273.15;
 const weather = {};
 weather.temperature = {
-  unit: 'celsius',
+  unit: 'C',
 };
 const key = '8e7d106695f8821e7a6da4304ae71e30';
 ///////////////////////////////////////////////////
@@ -55,5 +55,18 @@ function getWeather(latitude, longitude) {
       weather.mainDescription = data.weather[0].main;
       weather.icon = data.weather[0].icon;
       console.log('data', data);
+    })
+    .then(() => {
+      updateUI();
     });
 }
+
+///////////////////////////////////////////////////
+// show data to user's
+function updateUI() {
+  iconEl.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
+  tempEl.innerHTML = `<p> ° ${weather.temperature.value} <span>${weather.temperature.unit}</span>`;
+  descEl.textContent = `${weather.mainDescription}, ${weather.description}`;
+  locationEl.textContent = ` ${weather.countryCode},${weather.locationName}`;
+}
+console.log('weather', weather);
