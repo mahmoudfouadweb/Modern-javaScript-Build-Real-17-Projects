@@ -63,17 +63,34 @@ body {
 .name,
 .population,
 .currencies,
-.boards,
+.borders,
 .nameN,
 .populationN,
 .currenciesN,
-.boardsN {
+.bordersN {
   text-align: center;
   margin-top: 1rem;
-  font-size: 1.8rem;
+  /* font-size: 1.8rem; */
   line-height: 1.7;
   font-weight: 600;
   color: #444;
+}
+
+.data {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.bordersData span {
+  font-size: 1.8rem;
+  margin-left: 1rem;
+  cursor: pointer;
+  color: #222;
+  transition: all 0.3s;
+}
+
+.bordersData span:hover {
+  color: aqua;
 }
 
 .app-title {

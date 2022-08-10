@@ -11,17 +11,18 @@ const locationEl = document.querySelector('.location p');
 const notificationEl = document.querySelector('.notification');
 ///////////////////////////////////////////////////
 //Country General Variables setting
-const countryName = document.querySelector('.name');
-const population = document.querySelector('.population');
-const currencies = document.querySelector('.currencies');
-const capital = document.querySelector('.capital');
-console.log(countryName, population, currencies, capital);
+const countryName = document.querySelector('.name p');
+const population = document.querySelector('.population p');
+const currencies = document.querySelector('.currencies p');
+const borders = document.querySelector('.borders p');
+const bordersData = document.querySelector('.bordersData');
 // App
 const kelvin = 273.15;
 const weather = {};
 const countryData = {};
 weather.unit = 'C';
-
+///////////////////////////////////////////////////
+// Weather Private Key
 const key = '8e7d106695f8821e7a6da4304ae71e30';
 ///////////////////////////////////////////////////
 // check if browser support localization
@@ -40,12 +41,8 @@ function getLocalCoords(position) {
   const longitude = position.coords.longitude;
   // Get Data from API
   let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
-
   ///////////////////////////////////////////////////
-  // AR DATA
-  // let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&lang=ar`;
-
-  ///////////////////////////////////////////////////
+  // Get Weather Data
   fetch(api)
     .then(res => res.json())
     .then(data => {
@@ -60,14 +57,11 @@ function getLocalCoords(position) {
       updateUI();
     });
 }
-console.log('weather', weather);
-
 ///////////////////////////////////////////////////
 // show errors to user
 function errorMessage(message) {
   console.log(message);
 }
-
 ///////////////////////////////////////////////////
 // Update data to UI
 function updateUI() {
@@ -90,7 +84,7 @@ function updateUI() {
     countryData.population / 1000000
   )} Million`;
   currencies.textContent = `currency is: ${countryData.currencies}`;
-  capital.textContent = `borders: ${countryData.borders}`;
+  // borders.textContent = `borders: ${countryData.borders}`;
 }
 ///////////////////////////////////////////////////
 // country
@@ -103,9 +97,16 @@ function country(countryCode) {
       countryData.countryName = `${data[0].name.official}, ${data[0].capital[0]}`;
       countryData.population = data[0].population;
       countryData.currencies = `${data[0].currencies.EGP.name} , ${data[0].currencies.EGP.symbol}`;
-      const bords = [...data[0].borders].toString();
-      countryData.borders = bords;
-      console.log();
+      const borders = [...data[0].borders].toString();
+      countryData.borders = borders;
+      // const finalBorder = data[0].borders.forEach(border => {
+      //   const span = document.createElement('span');
+      //   span.textContent = border;
+      //   bordersData.insertAdjacentElement('beforeend', span);
+      //   console.log(border);
+      // });
+
+      // console.log(finalBorder);
       console.log(data[0]);
     })
     .then(() => {
@@ -118,7 +119,7 @@ console.log('countryData', countryData);
 countryName
 population
 currencies
-capital
+borders
  */
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
