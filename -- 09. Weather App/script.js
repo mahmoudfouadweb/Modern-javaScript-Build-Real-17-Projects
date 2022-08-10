@@ -15,6 +15,7 @@ const countryName = document.querySelector('.name');
 const population = document.querySelector('.population');
 const currencies = document.querySelector('.currencies');
 const capital = document.querySelector('.capital');
+console.log(countryName, population, currencies, capital);
 // App
 const kelvin = 273.15;
 const weather = {};
@@ -85,9 +86,11 @@ function updateUI() {
   descEl.textContent = weather.status;
   // country
   countryName.textContent = countryData.countryName;
-  population.textContent = `population is ${Math.round(
+  population.textContent = `population is: ${Math.round(
     countryData.population / 1000000
-  )} Milion`;
+  )} Million`;
+  currencies.textContent = `currency is: ${countryData.currencies}`;
+  capital.textContent = `borders: ${countryData.borders}`;
 }
 ///////////////////////////////////////////////////
 // country
@@ -97,10 +100,12 @@ function country(countryCode) {
   fetch(countryApi)
     .then(res => res.json())
     .then(data => {
-      countryData.countryName = data[0].name.official;
+      countryData.countryName = `${data[0].name.official}, ${data[0].capital[0]}`;
       countryData.population = data[0].population;
       countryData.currencies = `${data[0].currencies.EGP.name} , ${data[0].currencies.EGP.symbol}`;
-      countryData.capitalName = data[0].capital[0];
+      const bords = [...data[0].borders].toString();
+      countryData.borders = bords;
+      console.log();
       console.log(data[0]);
     })
     .then(() => {
