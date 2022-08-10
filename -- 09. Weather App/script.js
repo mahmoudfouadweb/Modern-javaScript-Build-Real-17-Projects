@@ -97,16 +97,15 @@ function country(countryCode) {
       countryData.countryName = `${data[0].name.official}, ${data[0].capital[0]}`;
       countryData.population = data[0].population;
       countryData.currencies = `${data[0].currencies.EGP.name} , ${data[0].currencies.EGP.symbol}`;
-      const borders = [...data[0].borders].toString();
-      countryData.borders = borders;
-      // const finalBorder = data[0].borders.forEach(border => {
-      //   const span = document.createElement('span');
-      //   span.textContent = border;
-      //   bordersData.insertAdjacentElement('beforeend', span);
-      //   console.log(border);
-      // });
-
-      // console.log(finalBorder);
+      data[0].borders.forEach(border => {
+        if (border) {
+          const span = document.createElement('span');
+          span.textContent = border.toLowerCase();
+          bordersData.insertAdjacentElement('beforeend', span);
+        } else {
+          bordersData.textContent = 'No Neighbors Found';
+        }
+      });
       console.log(data[0]);
     })
     .then(() => {
