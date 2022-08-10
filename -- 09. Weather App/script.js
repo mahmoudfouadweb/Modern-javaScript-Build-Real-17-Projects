@@ -48,7 +48,7 @@ function getLocalCoords(position) {
   fetch(api)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
+      // console.log(data);
       weather.temperature = Math.round(data.main.temp - kelvin);
       weather.status = `${data.weather[0].main} and ${data.weather[0].description}`;
       weather.icon = data.weather[0].icon;
@@ -84,21 +84,37 @@ function updateUI() {
   locationEl.style.cursor = `pointer`;
   descEl.textContent = weather.status;
   // country
+  countryName.textContent = countryData.countryName;
+  population.textContent = `population is ${Math.round(
+    countryData.population / 1000000
+  )} Milion`;
 }
 ///////////////////////////////////////////////////
 // country
 function country(countryCode) {
   const countryApi = `https://restcountries.com/v3.1/alpha?codes=eg`;
-  console.log(countryApi);
+  // console.log(countryApi);
   fetch(countryApi)
     .then(res => res.json())
     .then(data => {
       countryData.countryName = data[0].name.official;
+      countryData.population = data[0].population;
+      countryData.currencies = `${data[0].currencies.EGP.name} , ${data[0].currencies.EGP.symbol}`;
+      countryData.capitalName = data[0].capital[0];
       console.log(data[0]);
+    })
+    .then(() => {
+      updateUI();
     });
 }
 console.log('countryData', countryData);
 ///////////////////////////////////////////////////
+/*
+countryName
+population
+currencies
+capital
+ */
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
