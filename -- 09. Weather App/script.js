@@ -3,16 +3,22 @@
 // Demo 'copy me'
 
 ///////////////////////////////////////////////////
-//General Variables setting
+//Weather General Variables setting
 const iconEl = document.querySelector('.icon');
 const tempEl = document.querySelector('.temperature-value p');
 const descEl = document.querySelector('.temperature-description p');
 const locationEl = document.querySelector('.location p');
 const notificationEl = document.querySelector('.notification');
-
+///////////////////////////////////////////////////
+//Country General Variables setting
+const countryName = document.querySelector('.name');
+const population = document.querySelector('.population');
+const currencies = document.querySelector('.currencies');
+const capital = document.querySelector('.capital');
 // App
 const kelvin = 273.15;
 const weather = {};
+const countryData = {};
 weather.unit = 'C';
 
 const key = '8e7d106695f8821e7a6da4304ae71e30';
@@ -64,8 +70,10 @@ function errorMessage(message) {
 ///////////////////////////////////////////////////
 // Update data to UI
 function updateUI() {
-  // iconEl.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
+  // weather UI
+  iconEl.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
   tempEl.innerHTML = `<p>${weather.temperature}°<span>${weather.unit}</span></p> `;
+  // location Link style
   locationEl.textContent = weather.locationName;
   locationEl.addEventListener(
     'mouseover',
@@ -75,6 +83,7 @@ function updateUI() {
   locationEl.style.transition = `all 0.3s`;
   locationEl.style.cursor = `pointer`;
   descEl.textContent = weather.status;
+  // country
 }
 ///////////////////////////////////////////////////
 // country
@@ -83,8 +92,12 @@ function country(countryCode) {
   console.log(countryApi);
   fetch(countryApi)
     .then(res => res.json())
-    .then(data => console.log(data[0]));
+    .then(data => {
+      countryData.countryName = data[0].name.official;
+      console.log(data[0]);
+    });
 }
+console.log('countryData', countryData);
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
