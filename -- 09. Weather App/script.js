@@ -1,7 +1,6 @@
 'use strict';
 ///////////////////////////////////////////////////
 // Demo 'copy me'
-
 ///////////////////////////////////////////////////
 //Weather General Variables setting
 const iconEl = document.querySelector('.icon');
@@ -12,15 +11,23 @@ const notificationEl = document.querySelector('.notification');
 ///////////////////////////////////////////////////
 //Country General Variables setting
 const countryName = document.querySelector('.name p');
+const neighborName = document.querySelector('.nameN p');
 const population = document.querySelector('.population p');
-const currencies = document.querySelector('.currencies p');
-const borders = document.querySelector('.borders p');
-const bordersData = document.querySelector('.bordersData');
+const neighborPopulation = document.querySelector('.populationN p');
+const currencies = document.querySelector('.currenciesN p');
+const neighborCurrencies = document.querySelector('.currencies p');
+const bordersData = document.querySelector('.borders p');
+const bordersNeighbor = document.querySelector('.bordersData');
+const neighborBorders = document.querySelector('.bordersN');
+const flag = document.querySelector('.flagIcon');
+const flagN = document.querySelector('.flagNIcon');
 // App
 const kelvin = 273.15;
 const weather = {};
 const countryData = {};
+const neighborData = {};
 weather.unit = 'C';
+console.log(bordersData.querySelectorAll('span'));
 ///////////////////////////////////////////////////
 // Weather Private Key
 const key = '8e7d106695f8821e7a6da4304ae71e30';
@@ -32,7 +39,6 @@ if (navigator.geolocation) {
   notificationEl.style.display = `block`;
   notificationEl.textContent = `Your Browser Not Support Localization `;
 }
-
 ///////////////////////////////////////////////////
 // get Coordinate Longitude and
 function getLocalCoords(position) {
@@ -63,7 +69,33 @@ function errorMessage(message) {
   console.log(message);
 }
 ///////////////////////////////////////////////////
+// country
+function country(countryCode) {
+  const countryApi = `https://restcountries.com/v3.1/alpha?codes=${countryCode}`;
+  // console.log(countryApi);
+  fetch(countryApi)
+    .then(res => res.json())
+    .then(data => {
+      // countryUI function
+      countryUI(data[0], countryData, bordersData);
+      countryUI(data[0], neighborData, bordersNeighbor);
+      // For Development
+      console.log(data[0]);
+      return data[0].borders;
+    })
+    .then(borders => {
+      borders.forEach(border => {
+        console.log('Right here😎💋😁');
+      });
+      console.log(borders);
+    })
+    .then(() => {
+      updateUI();
+    });
+}
+///////////////////////////////////////////////////
 // Update data to UI
+
 function updateUI() {
   // weather UI
   iconEl.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
@@ -80,36 +112,60 @@ function updateUI() {
   descEl.textContent = weather.status;
   // country
   countryName.textContent = countryData.countryName;
+  neighborName.textContent = neighborData.countryName;
+  // population
   population.textContent = `population is: ${Math.round(
     countryData.population / 1000000
   )} Million`;
+  neighborPopulation.textContent = `population is: ${Math.round(
+    neighborData.population / 1000000
+  )} Million`;
+  // currencies
   currencies.textContent = `currency is: ${countryData.currencies}`;
-  // borders.textContent = `borders: ${countryData.borders}`;
-}
-///////////////////////////////////////////////////
-// country
-function country(countryCode) {
-  const countryApi = `https://restcountries.com/v3.1/alpha?codes=eg`;
-  // console.log(countryApi);
-  fetch(countryApi)
-    .then(res => res.json())
-    .then(data => {
-      countryData.countryName = `${data[0].name.official}, ${data[0].capital[0]}`;
-      countryData.population = data[0].population;
-      countryData.currencies = `${data[0].currencies.EGP.name} , ${data[0].currencies.EGP.symbol}`;
-      data[0].borders.forEach(border => {
-        if (border) {
-          const span = document.createElement('span');
-          span.textContent = border.toLowerCase();
-          bordersData.insertAdjacentElement('beforeend', span);
-        } else {
-          bordersData.textContent = 'No Neighbors Found';
-        }
-      });
-      console.log(data[0]);
-    })
-    .then(() => {
-      updateUI();
-    });
+  neighborCurrencies.textContent = `currency is: ${neighborData.currencies}`;
+  // Flag
+  flag.src = countryData.flag;
+  flagN.src = neighborData.flag;
 }
 console.log('countryData', countryData);
+console.log('neighborData', neighborData);
+///////////////////////////////////////////////////
+// Update Neighbors data to UI
+function Neighbors() {
+  console.log('hi');
+}
+/*
+neighborName
+neighborPopulation
+neighborCurrencies
+bordersNeighbor
+flagN
+ */
+function countryUI(data, object, borderEl) {
+  object.countryName = `${data.name.official}, ${data.capital[0]}`;
+  object.population = data.population;
+  object.currencies = `${
+    data.currencies[Object.keys(data.currencies)[0]].name
+  } , ${data.currencies[Object.keys(data.currencies)[0]].symbol}`;
+  object.flag = data.flags.png;
+  console.log(data.flags.png);
+  // borders
+  data.borders.forEach(border => {
+    if (border) {
+      const span = document.createElement('span');
+      span.textContent = border.toLowerCase();
+      borderEl.insertAdjacentElement('beforeend', span);
+    } else {
+      borderEl.textContent = 'No Neighbors Found';
+    }
+  });
+  // Selecting Neighbors
+  borderEl.addEventListener('click', e => {
+    const clicked = e.target;
+    if (!clicked.classList.contains('data')) {
+      console.log('success');
+      console.log(clicked.textContent);
+      country(clicked.textContent);
+    }
+  });
+}
