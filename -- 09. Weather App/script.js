@@ -16,7 +16,6 @@ const weather = {};
 weather.unit = 'C';
 
 const key = '8e7d106695f8821e7a6da4304ae71e30';
-
 ///////////////////////////////////////////////////
 // check if browser support localization
 if (navigator.geolocation) {
@@ -48,6 +47,7 @@ function getLocalCoords(position) {
       weather.status = `${data.weather[0].main} and ${data.weather[0].description}`;
       weather.icon = data.weather[0].icon;
       weather.locationName = `${data.sys.country}, ${data.name}`;
+      country(data.sys.country.toLowerCase());
     })
     .then(() => {
       updateUI();
@@ -64,12 +64,27 @@ function errorMessage(message) {
 ///////////////////////////////////////////////////
 // Update data to UI
 function updateUI() {
-  iconEl.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
+  // iconEl.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
   tempEl.innerHTML = `<p>${weather.temperature}°<span>${weather.unit}</span></p> `;
   locationEl.textContent = weather.locationName;
+  locationEl.addEventListener(
+    'mouseover',
+    e => (e.target.style.color = `#3bc9db`)
+  );
+  locationEl.addEventListener('mouseout', e => (e.target.style.color = `#222`));
+  locationEl.style.transition = `all 0.3s`;
+  locationEl.style.cursor = `pointer`;
   descEl.textContent = weather.status;
 }
 ///////////////////////////////////////////////////
+// country
+function country(countryCode) {
+  const countryApi = `https://restcountries.com/v3.1/alpha?codes=eg`;
+  console.log(countryApi);
+  fetch(countryApi)
+    .then(res => res.json())
+    .then(data => console.log(data[0]));
+}
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////

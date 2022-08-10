@@ -21,6 +21,8 @@ body {
 /**************************/
 .container {
   width: 30rem;
+  height: 35rem;
+
   background-color: #fff;
   display: block;
   margin: 0 auto;
@@ -28,6 +30,46 @@ body {
   border-radius: 11px;
   padding-bottom: 5rem;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.13);
+}
+
+.container.country {
+  display: none;
+  width: 30rem;
+  height: 45rem;
+  margin-top: 15rem;
+  /* padding: 0 2.4rem; */
+  overflow: hidden;
+  /* background-color: aquamarine; */
+}
+
+.container.country.active {
+  display: block;
+}
+
+.container.country.active:nth-last-of-type(1) {
+  margin-top: 22rem;
+}
+
+.image {
+  display: flex;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 10rem;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.name,
+.population,
+.currencies,
+.capital {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 3rem;
+  line-height: 1.7;
+  font-weight: 600;
+  color: #444;
 }
 
 .app-title {
