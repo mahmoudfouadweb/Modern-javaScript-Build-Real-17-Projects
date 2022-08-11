@@ -97,6 +97,9 @@ function updateUI() {
     e => (e.target.style.color = `#3bc9db`)
   );
   locationEl.addEventListener('mouseout', e => (e.target.style.color = `#222`));
+  locationEl.addEventListener('click', e => {
+    document.querySelector('.country').classList.add('active');
+  });
   locationEl.style.transition = `all 0.3s`;
   locationEl.style.cursor = `pointer`;
   descEl.textContent = weather.status;
@@ -127,15 +130,7 @@ function neighbors(neighbors) {
         }`;
         neighborData.flag = data.flags.png;
         // Neighbor Borders
-        data.borders.forEach(border => {
-          if (border) {
-            const span = document.createElement('span');
-            span.textContent = border.toLowerCase();
-            neighborBorders.insertAdjacentElement('beforeend', span);
-          } else {
-            neighborBorders.textContent = 'No Neighbors Found';
-          }
-        });
+        neighborData.borders = data.borders;
       } else {
         neighborName.textContent = `No Neighbor's Found`;
       }
@@ -176,6 +171,8 @@ function countryUI(data, object, borderEl) {
     if (!clicked.classList.contains('data')) {
       // console.log('success');
       // console.log(clicked.textContent);
+      document.querySelector('.neighbor').classList.remove('active');
+      document.querySelector('.neighbor').classList.add('active');
       neighbors(clicked.textContent);
       neighborCard();
     }
@@ -190,4 +187,14 @@ function neighborCard() {
   )} Million`;
   neighborCurrencies.textContent = `currency is: ${neighborData.currencies}`;
   flagN.src = neighborData.flag;
+  // borders
+  // neighborData.borders.forEach(border => {
+  //   if (border) {
+  //     const span = document.createElement('span');
+  //     span.textContent = border.toLowerCase();
+  //     neighborBorders.insertAdjacentElement('beforeend', span);
+  //   } else {
+  //     neighborBorders.textContent = 'No Neighbors Found';
+  //   }
+  // });
 }
