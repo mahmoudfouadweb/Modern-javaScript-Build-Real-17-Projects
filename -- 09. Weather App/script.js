@@ -176,6 +176,7 @@ function countryUI(data, object, borderEl) {
       neighbors(clicked.textContent);
       neighborCard();
     }
+    // neighborCard();
   });
 }
 ///////////////////////////////////////////////////
