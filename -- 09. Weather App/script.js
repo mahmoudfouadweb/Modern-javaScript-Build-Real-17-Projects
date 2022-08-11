@@ -88,7 +88,6 @@ function country(countryCode) {
 }
 ///////////////////////////////////////////////////
 // Update data to UI
-
 function updateUI() {
   // weather UI
   iconEl.src = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
@@ -111,7 +110,6 @@ function updateUI() {
   currencies.textContent = `currency is: ${countryData.currencies}`;
   flag.src = countryData.flag;
 }
-
 ///////////////////////////////////////////////////
 // Update Neighbors data to UI
 function neighbors(neighbors) {
@@ -124,7 +122,11 @@ function neighbors(neighbors) {
         neighborData.population = data.population;
         neighborData.currencies = `${
           data.currencies[Object.keys(data.currencies)[0]].name
-        } , ${data.currencies[Object.keys(data.currencies)[0]].symbol}`;
+        } , ${
+          data.currencies[Object.keys(data.currencies)[0]].symbol
+            ? data.currencies[Object.keys(data.currencies)[0]].symbol
+            : `not supported Currency`
+        }`;
         neighborData.flag = data.flags.png;
       } else {
         neighborName.textContent = `No Neighbor's Found`;
@@ -136,19 +138,18 @@ function neighbors(neighbors) {
       neighborCard();
     });
 }
-/*
-neighborName
-neighborPopulation
-neighborCurrencies
-bordersNeighbor
-flagN
- */
+///////////////////////////////////////////////////
+// Update Country Saved Date
 function countryUI(data, object, borderEl) {
   object.countryName = `${data.name.official}, ${data.capital[0]}`;
   object.population = data.population;
   object.currencies = `${
     data.currencies[Object.keys(data.currencies)[0]].name
-  } , ${data.currencies[Object.keys(data.currencies)[0]].symbol}`;
+  } , ${
+    data.currencies[Object.keys(data.currencies)[0]].symbol
+      ? data.currencies[Object.keys(data.currencies)[0]].symbol
+      : `not supported Currency`
+  }`;
   object.flag = data.flags.png;
   // borders
   data.borders.forEach(border => {
@@ -168,16 +169,17 @@ function countryUI(data, object, borderEl) {
       // console.log('success');
       // console.log(clicked.textContent);
       neighbors(clicked.textContent);
-      updateUI();
+      neighborCard();
     }
   });
 }
-
+///////////////////////////////////////////////////
+// Update Neighbor card
 function neighborCard() {
-  neighborName.textContent = countryData.countryName;
+  neighborName.textContent = neighborData.countryName;
   neighborPopulation.textContent = `population is: ${Math.round(
-    countryData.population / 1000000
+    neighborData.population / 1000000
   )} Million`;
-  neighborCurrencies.textContent = `currency is: ${countryData.currencies}`;
-  flagN.src = countryData.flag;
+  neighborCurrencies.textContent = `currency is: ${neighborData.currencies}`;
+  flagN.src = neighborData.flag;
 }
