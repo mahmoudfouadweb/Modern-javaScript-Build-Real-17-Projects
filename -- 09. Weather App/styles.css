@@ -33,7 +33,7 @@ body {
 }
 
 .container.country {
-  display: none;
+  opacity: 0;
   width: 30rem;
   height: 45rem;
   margin-top: 15rem;
@@ -43,7 +43,8 @@ body {
 }
 
 .container.country.active {
-  display: block;
+  opacity: 1;
+  transition: all 1.1s ease-in-out;
 }
 
 .container.country.active:nth-last-of-type(1) {

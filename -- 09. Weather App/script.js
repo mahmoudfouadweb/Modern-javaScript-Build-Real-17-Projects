@@ -56,6 +56,7 @@ function getLocalCoords(position) {
       weather.icon = data.weather[0].icon;
       weather.locationName = `${data.sys.country}, ${data.name}`;
       country(data.sys.country.toLowerCase());
+      // country('sa');
     })
     .then(() => {
       updateUI();
