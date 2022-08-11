@@ -81,7 +81,8 @@ body {
   font-weight: 600;
 }
 
-.bordersData span {
+.bordersData span,
+.bordersDataN span {
   font-size: 1.8rem;
   margin-left: 1rem;
   cursor: pointer;
@@ -89,7 +90,8 @@ body {
   transition: all 0.3s;
 }
 
-.bordersData span:hover {
+.bordersData span:hover,
+.bordersDataN span:hover {
   color: aqua;
 }
 

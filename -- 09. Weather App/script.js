@@ -18,7 +18,7 @@ const currencies = document.querySelector('.currencies p');
 const neighborCurrencies = document.querySelector('.currenciesN p');
 const bordersData = document.querySelector('.borders p');
 const bordersNeighbor = document.querySelector('.bordersData p');
-const neighborBorders = document.querySelector('.bordersN');
+const neighborBorders = document.querySelector('.bordersN p');
 const flag = document.querySelector('.flagIcon');
 const flagN = document.querySelector('.flagNIcon');
 // App
@@ -51,7 +51,6 @@ function getLocalCoords(position) {
   fetch(api)
     .then(res => res.json())
     .then(data => {
-      // console.log(data);
       weather.temperature = Math.round(data.main.temp - kelvin);
       weather.status = `${data.weather[0].main} and ${data.weather[0].description}`;
       weather.icon = data.weather[0].icon;
@@ -77,7 +76,6 @@ function country(countryCode) {
     .then(data => {
       // countryUI function
       countryUI(data[0], countryData, bordersData);
-      // countryUI(data[0], neighborData, bordersNeighbor);
       // For Development
       console.log('country', data[0]);
       return data[0];
@@ -128,6 +126,16 @@ function neighbors(neighbors) {
             : `not supported Currency`
         }`;
         neighborData.flag = data.flags.png;
+        // Neighbor Borders
+        data.borders.forEach(border => {
+          if (border) {
+            const span = document.createElement('span');
+            span.textContent = border.toLowerCase();
+            neighborBorders.insertAdjacentElement('beforeend', span);
+          } else {
+            neighborBorders.textContent = 'No Neighbors Found';
+          }
+        });
       } else {
         neighborName.textContent = `No Neighbor's Found`;
       }
