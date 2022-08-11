@@ -14,8 +14,8 @@ const countryName = document.querySelector('.name p');
 const neighborName = document.querySelector('.nameN p');
 const population = document.querySelector('.population p');
 const neighborPopulation = document.querySelector('.populationN p');
-const currencies = document.querySelector('.currenciesN p');
-const neighborCurrencies = document.querySelector('.currencies p');
+const currencies = document.querySelector('.currencies p');
+const neighborCurrencies = document.querySelector('.currenciesN p');
 const bordersData = document.querySelector('.borders p');
 const bordersNeighbor = document.querySelector('.bordersData p');
 const neighborBorders = document.querySelector('.bordersN');
@@ -27,7 +27,6 @@ const weather = {};
 const countryData = {};
 const neighborData = {};
 weather.unit = 'C';
-console.log(bordersData.querySelectorAll('span'));
 ///////////////////////////////////////////////////
 // Weather Private Key
 const key = '8e7d106695f8821e7a6da4304ae71e30';
@@ -80,7 +79,7 @@ function country(countryCode) {
       countryUI(data[0], countryData, bordersData);
       // countryUI(data[0], neighborData, bordersNeighbor);
       // For Development
-      console.log(data[0]);
+      console.log('country', data[0]);
       return data[0];
     })
     .then(() => {
@@ -106,42 +105,37 @@ function updateUI() {
   descEl.textContent = weather.status;
   // country
   countryName.textContent = countryData.countryName;
-  neighborName.textContent = neighborData.countryName;
-  // population
   population.textContent = `population is: ${Math.round(
     countryData.population / 1000000
   )} Million`;
-  neighborPopulation.textContent = `population is: ${Math.round(
-    neighborData.population / 1000000
-  )} Million`;
-  // currencies
   currencies.textContent = `currency is: ${countryData.currencies}`;
-  neighborCurrencies.textContent = `currency is: ${neighborData.currencies}`;
-  // Flag
   flag.src = countryData.flag;
-  flagN.src = neighborData.flag;
 }
-console.log('countryData', countryData);
-console.log('neighborData', neighborData);
+
 ///////////////////////////////////////////////////
 // Update Neighbors data to UI
-function Neighbors(neighbors) {
-  const fetchNeighbor = fetch(
-    `https://restcountries.com/v3.1/alpha?codes=${neighbors}`
-  )
+function neighbors(neighbors) {
+  fetch(`https://restcountries.com/v3.1/alpha?codes=${neighbors}`)
     .then(res => res.json())
-    .then(dataN => console.log('fetchNeighbor', dataN[0]));
-  if (neighbors.borders) {
-    const spanN = document.createElement('span');
-    neighbors.borders.forEach(border => {
-      spanN.textContent = border;
-      bordersNeighbor.insertAdjacentElement('beforeend', spanN);
-      console.log(border);
+    .then(dataN => {
+      const data = dataN[0];
+      if (data.borders) {
+        neighborData.countryName = `${data.name.official}, ${data.capital[0]}`;
+        neighborData.population = data.population;
+        neighborData.currencies = `${
+          data.currencies[Object.keys(data.currencies)[0]].name
+        } , ${data.currencies[Object.keys(data.currencies)[0]].symbol}`;
+        neighborData.flag = data.flags.png;
+      } else {
+        neighborName.textContent = `No Neighbor's Found`;
+      }
+      console.log('neighbor', data);
+      console.log('neighborDataObject', neighborData);
+    })
+    .then(() => {
+      neighborCard();
     });
-  }
 }
-Neighbors('lby');
-
 /*
 neighborName
 neighborPopulation
@@ -156,7 +150,6 @@ function countryUI(data, object, borderEl) {
     data.currencies[Object.keys(data.currencies)[0]].name
   } , ${data.currencies[Object.keys(data.currencies)[0]].symbol}`;
   object.flag = data.flags.png;
-  console.log(data.flags.png);
   // borders
   data.borders.forEach(border => {
     if (border) {
@@ -167,13 +160,24 @@ function countryUI(data, object, borderEl) {
       borderEl.textContent = 'No Neighbors Found';
     }
   });
+  console.log('countryDataObject', countryData);
   // Selecting Neighbors
   borderEl.addEventListener('click', e => {
     const clicked = e.target;
     if (!clicked.classList.contains('data')) {
-      console.log('success');
-      console.log(clicked.textContent);
-      country(clicked.textContent);
+      // console.log('success');
+      // console.log(clicked.textContent);
+      neighbors(clicked.textContent);
+      updateUI();
     }
   });
+}
+
+function neighborCard() {
+  neighborName.textContent = countryData.countryName;
+  neighborPopulation.textContent = `population is: ${Math.round(
+    countryData.population / 1000000
+  )} Million`;
+  neighborCurrencies.textContent = `currency is: ${countryData.currencies}`;
+  flagN.src = countryData.flag;
 }
