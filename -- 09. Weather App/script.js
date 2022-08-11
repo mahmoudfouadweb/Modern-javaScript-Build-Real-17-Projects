@@ -17,7 +17,7 @@ const neighborPopulation = document.querySelector('.populationN p');
 const currencies = document.querySelector('.currenciesN p');
 const neighborCurrencies = document.querySelector('.currencies p');
 const bordersData = document.querySelector('.borders p');
-const bordersNeighbor = document.querySelector('.bordersData');
+const bordersNeighbor = document.querySelector('.bordersData p');
 const neighborBorders = document.querySelector('.bordersN');
 const flag = document.querySelector('.flagIcon');
 const flagN = document.querySelector('.flagNIcon');
@@ -78,16 +78,10 @@ function country(countryCode) {
     .then(data => {
       // countryUI function
       countryUI(data[0], countryData, bordersData);
-      countryUI(data[0], neighborData, bordersNeighbor);
+      // countryUI(data[0], neighborData, bordersNeighbor);
       // For Development
       console.log(data[0]);
-      return data[0].borders;
-    })
-    .then(borders => {
-      borders.forEach(border => {
-        console.log('Right here😎💋😁');
-      });
-      console.log(borders);
+      return data[0];
     })
     .then(() => {
       updateUI();
@@ -131,9 +125,23 @@ console.log('countryData', countryData);
 console.log('neighborData', neighborData);
 ///////////////////////////////////////////////////
 // Update Neighbors data to UI
-function Neighbors() {
-  console.log('hi');
+function Neighbors(neighbors) {
+  const fetchNeighbor = fetch(
+    `https://restcountries.com/v3.1/alpha?codes=${neighbors}`
+  )
+    .then(res => res.json())
+    .then(dataN => console.log('fetchNeighbor', dataN[0]));
+  if (neighbors.borders) {
+    const spanN = document.createElement('span');
+    neighbors.borders.forEach(border => {
+      spanN.textContent = border;
+      bordersNeighbor.insertAdjacentElement('beforeend', spanN);
+      console.log(border);
+    });
+  }
 }
+Neighbors('lby');
+
 /*
 neighborName
 neighborPopulation
